@@ -1,0 +1,14 @@
+//Example: 
+
+//{
+  //"rooms": {
+    //"room-abc-123": {
+      //"users": ["Alice", "Bob"],
+      //"messages": [
+        //{ "user": "Alice", "text": "Hey!", "time": "12:00" },
+        //{ "user": "Bob", "text": "Hi Alice!", "time": "12:01" }
+     // ],
+     // "status": "active" 
+   // }
+ // }
+//}
