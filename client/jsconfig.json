@@ -1,9 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": ["./src/*"]
+
   },
-  "exclude": ["node_modules", "dist"]
+     "jsx": "react-jsx",
+    "checkJs": true // Keeps your own code clean
+  },
+  "exclude": [
+    "node_modules", 
+    "dist", 
+    "src/components/ui/**/*.jsx" // Prevents shadcn noise in your editor
+  ]
 }
