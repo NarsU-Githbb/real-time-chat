@@ -1,17 +1,23 @@
 //import { useState } from 'react'
 import { useRef } from "react"
+import { createFileRoute } from '@tanstack/react-router'
 import { Button } from "@/components/ui/button"
-import { ChevronDown, TrendingUp, TrendingDown, Dog, Users, Copyright } from "lucide-react" 
+import { ChevronDown, TrendingUp, TrendingDown, Dog, Users } from "lucide-react"
 
+export const Route = createFileRoute('/')({
+  component: HomeComponent,
+})
 
-export default function App() {
-  const contentRef = useRef(null)
+function HomeComponent() {
+  const contentRef = useRef<HTMLDivElement>(null)
 
   const scrollToContent = () => {
     contentRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
-    return (
+
+return (
+      <>
     <div className="flex flex-col bg-zinc-50">
       {/* SECTION 1: The Hook */}
       <div className="h-screen flex flex-col items-center justify-center p-6 text-center bg-zinc-950 text-white relative">
@@ -89,55 +95,14 @@ export default function App() {
             <Button variant="secondary" className="h-auto p-6 flex items-start gap-4 justify-start bg-white border border-zinc-200">
               <Dog className="size-6 text-orange-600 shrink-0" /> 
               <div className="text-left">
-                <div className="font-bold">Meet our office dog: Rufus™ (made by Unitree Robotics)</div>
+                <div className="font-bold">Me our office dog: Rufus™ (made by Unitree Robotics)</div>
                 <div className="text-xs font-normal opacity-70">Money saved on dog treats = bigger share value for the investors!</div>
               </div>
             </Button>
           </div>
         </div>
       </div>
-
-      {/* FOOTER: The Legal Void */}
-      <footer className="bg-zinc-950 text-zinc-500 py-16 px-6 border-t border-zinc-800">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 text-xs uppercase tracking-widest">
-          <div className="flex flex-col gap-4">
-            <div className="text-zinc-200 font-bold mb-2">Artifacts</div>
-            <a href="#" className="hover:text-white transition-colors">Convo-Sync NFTs</a>
-            <a href="#" className="hover:text-white transition-colors">Slop-as-a-Service</a>
-            <a href="#" className="hover:text-white transition-colors">Growth Maximizer</a>
-            <a href="#" className="hover:text-white transition-colors">Successful Rug Pulls</a>
-          </div>
-          <div className="flex flex-col gap-4">
-            <div className="text-zinc-200 font-bold mb-2">Governance</div>
-            <a href="#" className="hover:text-white transition-colors">Shareholder First Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy Non-Factor</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of you own nothing & be happy</a>
-            <a href="#" className="hover:text-white transition-colors">Exit Scam Plans 2030</a>
-          </div>
-          <div className="flex flex-col gap-4">
-            <div className="text-zinc-200 font-bold mb-2">Company</div>
-            <a href="#" className="hover:text-white transition-colors">Synergy Family</a>
-            <a href="#" className="hover:text-white transition-colors">Careers (Unpaid)</a>
-            <a href="#" className="hover:text-white transition-colors">Donate Crypto</a>
-            <a href="#" className="hover:text-white transition-colors">Q&</a>
-          </div>
-          <div className="flex flex-col gap-4">
-            <div className="text-zinc-200 font-bold mb-2">Social</div>
-            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-white transition-colors">Twitter (Currently X)</a>
-             <a href="#" className="hover:text-white transition-colors">Our Website</a>
-              <a href="#" className="hover:text-white transition-colors">4 option so the footer is symmetrical</a>
-          </div>
-        </div>
-        <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2">
-            <Copyright className="size-3" /> 2026 GLOBAL SYNERGY CORP. ALL RIGHTS RESERVED.
-          </div>
-          <div className="text-[10px] opacity-30 italic">
-            Powered by 100% Non-Organic Intelligence.
-          </div>
-        </div>
-      </footer>
     </div>
+    </>
   )
 }
