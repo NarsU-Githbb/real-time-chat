@@ -8,6 +8,7 @@ How to run in dev mode:
 
 Files structure - with explanation of specific files that are new to me:
 
+```
 ├── server/                 # Everything Backend related
 ├── client/                 # Everything frontend related
     ├── Public/             # Static assets (favicons, manifest files)
@@ -23,3 +24,4 @@ Files structure - with explanation of specific files that are new to me:
     ├── components.json     # Shadcn/ui theme configuration (Tells CLI where to download UI code)
     ├── routeTree.gen.ts    # Automatically generated file that maps your src/routes/ (tanstack router)
     └── vite.config.js      # The bundler engine (Manages hot-reloading & backend server proxies)
+```
