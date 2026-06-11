@@ -9,8 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OhnoRouteImport } from './routes/ohno'
+import { Route as LobbyRouteImport } from './routes/lobby'
+import { Route as ConnectingRouteImport } from './routes/connecting'
+import { Route as ChatRouteImport } from './routes/chat'
+import { Route as BeginRouteImport } from './routes/begin'
 import { Route as IndexRouteImport } from './routes/index'
 
+const OhnoRoute = OhnoRouteImport.update({
+  id: '/ohno',
+  path: '/ohno',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LobbyRoute = LobbyRouteImport.update({
+  id: '/lobby',
+  path: '/lobby',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectingRoute = ConnectingRouteImport.update({
+  id: '/connecting',
+  path: '/connecting',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BeginRoute = BeginRouteImport.update({
+  id: '/begin',
+  path: '/begin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +49,83 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/begin': typeof BeginRoute
+  '/chat': typeof ChatRoute
+  '/connecting': typeof ConnectingRoute
+  '/lobby': typeof LobbyRoute
+  '/ohno': typeof OhnoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/begin': typeof BeginRoute
+  '/chat': typeof ChatRoute
+  '/connecting': typeof ConnectingRoute
+  '/lobby': typeof LobbyRoute
+  '/ohno': typeof OhnoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/begin': typeof BeginRoute
+  '/chat': typeof ChatRoute
+  '/connecting': typeof ConnectingRoute
+  '/lobby': typeof LobbyRoute
+  '/ohno': typeof OhnoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/begin' | '/chat' | '/connecting' | '/lobby' | '/ohno'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/begin' | '/chat' | '/connecting' | '/lobby' | '/ohno'
+  id: '__root__' | '/' | '/begin' | '/chat' | '/connecting' | '/lobby' | '/ohno'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BeginRoute: typeof BeginRoute
+  ChatRoute: typeof ChatRoute
+  ConnectingRoute: typeof ConnectingRoute
+  LobbyRoute: typeof LobbyRoute
+  OhnoRoute: typeof OhnoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/ohno': {
+      id: '/ohno'
+      path: '/ohno'
+      fullPath: '/ohno'
+      preLoaderRoute: typeof OhnoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lobby': {
+      id: '/lobby'
+      path: '/lobby'
+      fullPath: '/lobby'
+      preLoaderRoute: typeof LobbyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connecting': {
+      id: '/connecting'
+      path: '/connecting'
+      fullPath: '/connecting'
+      preLoaderRoute: typeof ConnectingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/begin': {
+      id: '/begin'
+      path: '/begin'
+      fullPath: '/begin'
+      preLoaderRoute: typeof BeginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +138,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BeginRoute: BeginRoute,
+  ChatRoute: ChatRoute,
+  ConnectingRoute: ConnectingRoute,
+  LobbyRoute: LobbyRoute,
+  OhnoRoute: OhnoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

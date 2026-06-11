@@ -49,10 +49,10 @@ return (
        
         <div className="flex gap-4 mb-16">
           <Button size="lg" className="font-bold uppercase tracking-widest px-8 shadow-xl">
-            Onboard into the Ecosystem
+            <a href="./begin">Onboard into the Ecosystem</a>
           </Button>
           <Button variant="outline" size="lg" className="border-zinc-300">
-            Request Partner Status
+            <a href="./ohno">Request Partner Status</a>
           </Button>
         </div>
        
@@ -95,7 +95,7 @@ return (
             <Button variant="secondary" className="h-auto p-6 flex items-start gap-4 justify-start bg-white border border-zinc-200">
               <Dog className="size-6 text-orange-600 shrink-0" /> 
               <div className="text-left">
-                <div className="font-bold">Me our office dog: Rufus™ (made by Unitree Robotics)</div>
+                <div className="font-bold">Meet our office dog: Rufus™ (made by Unitree Robotics)</div>
                 <div className="text-xs font-normal opacity-70">Money saved on dog treats = bigger share value for the investors!</div>
               </div>
             </Button>

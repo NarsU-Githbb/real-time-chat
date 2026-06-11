@@ -30,11 +30,11 @@ return (
             <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
             <a href="#" className="hover:text-white transition-colors">Twitter (Currently X)</a>
              <a href="#" className="hover:text-white transition-colors">Our Website</a>
-              <a href="#" className="hover:text-white transition-colors">4 option so the footer is symmetrical</a>
+              <a href="#" className="hover:text-white transition-colors">4th option so the footer is symmetrical</a>
           </div>
         </div>
    <div className="max-w-6xl mx-auto mt-16 text-[10px] text-zinc-600 opacity-40 uppercase tracking-widest text-center md:text-left italic">
-          * Note: These links will fully function in the future, once our sole prompt engineer returns from an permanent medical leave.
+          * Note: These links will be fully functional in the future, once our sole prompt engineer returns from an permanent medical leave.
         </div>
 
         <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4">

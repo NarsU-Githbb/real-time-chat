@@ -22,6 +22,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+ server: {
+    allowedHosts: true // delete this after production - major security risk!!!
+  }
 })
 
 
