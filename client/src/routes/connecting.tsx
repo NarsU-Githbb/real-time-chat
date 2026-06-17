@@ -43,8 +43,9 @@ function connection() {
   return (    
   <div className="flex-col justify-center items-center h-screen p-6 mt-25 w-full max-w-md mx-auto">
   
-          {/* --- CARD ONE STEP --- */}
+          
           <div className="pl-3 mb-20">
+            {/* --- CARD TWO STEP --- */}
             <Card className="w-full">
               <CardHeader>
                 <CardTitle>Welcome to the Name-Questionnaire!</CardTitle>

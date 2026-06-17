@@ -27,7 +27,9 @@ function Lobbying() {
           </CardContent> 
           <CardFooter>
                         <Field orientation="horizontal" className="w-full justify-end gap-2">
-                          <Button type="button" variant="outline">Cancel</Button>
+                          <Button type="button" variant="outline">
+                            <a href="/">Cancel</a>
+                            </Button>
                         </Field>
                         </CardFooter>
           </Card>

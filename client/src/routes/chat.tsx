@@ -1,12 +1,23 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Textarea } from "@/components/ui/textarea"
+import React from 'react';
+
+// Represents the entire chat container structure
+type ChatScreen = {
+  messages: {
+    sender: string;
+    message: string;
+    timeSend: Date;
+  }[]; // The [] tells TypeScript this is a list of these objects
+};
 
 export const Route = createFileRoute('/chat')({
   component: Chat,
 })
 
 function Chat() {
+  const [chatData, setChatData] = React.useState<ChatScreen>({ messages: [] });
   return ( 
     <>
     <Field className="flex flex-col h-screen max-h-screen pt-5 px-8 overflow-hidden box-border">
@@ -14,7 +25,11 @@ function Chat() {
           id="chat-screen" 
           placeholder="Let the interaction begin!" 
           readOnly 
-          className="flex-1 w-full border rounded-xl bg-background text-foreground resize-none focus:outline-none min-h-0" 
+          className="flex-1 w-full border rounded-xl bg-background text-foreground resize-none focus:outline-none min-h-0"
+          value={chatData.messages
+    .map((msg: { sender: string; message: string; timeSend: string }) => `[${msg.timeSend}] ${msg.sender}: ${msg.message}`)
+    .join('\n')
+  } 
         />
         
   
