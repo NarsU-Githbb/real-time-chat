@@ -1,16 +1,18 @@
 // src/routes/begin.tsx
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { useForm } from "@tanstack/react-form"
 import { toast } from "sonner" //This is a direct trigger function to launch temporary alert notifications.
 import * as z from "zod" //zod is a validation tool for the username
 import { motion, AnimatePresence } from "framer-motion";
+import { io } from "socket.io-client";
 
 // Import your primitives from the UI folder
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+
 
 const formSchema = z.object({
   username: z
@@ -24,21 +26,27 @@ export const Route = createFileRoute('/begin')({
   component: Begin,
 })
 
-function Begin() {
+const socket = io("http://localhost:3000")
+socket.on("connect", () => {
+  console.log("CONNECTED", socket.id);
+});
+
+export function Begin() {
 
     const [step, setStep] = useState(1)
   // Track direction: 1 for forward, -1 for backward
-  const [direction, setDirection] = useState(1)
-  const [generatedLink, setGeneratedLink] = useState("")
+  const [direction, setDirection] = useState(1) //dead code maybe???
+  const [user1, setUser1] = useState<string>("")
+  const [secureRoomId, setSecureRoomId] = useState<string>("")
+
+  
 
  const form = useForm({
-    defaultValues: {
-      username: "",
-    },
-    validators: {
-      onSubmit: formSchema,
-    },
+    defaultValues: {username: "" },
+    validators: { onSubmit: formSchema },
     onSubmit: async ({ value }) => {
+      setUser1(value.username)
+      socket.emit("create_room")
       toast("Form successfully submitted!", {
         description: `Logged username: ${value.username}`,
         position: "bottom-right",
@@ -46,6 +54,19 @@ function Begin() {
        setStep(2)
     },
   })
+
+  useEffect(() => {
+    // Listen for the event from the server
+    socket.on("room_created", (data) => {
+    console.log("received room:", data); //delete later when you see it works
+    setSecureRoomId(data.roomId);
+      
+    });
+
+    return () => {
+      socket.off("room_created");
+    };
+  }, []);
 
 
   return ( 
@@ -99,7 +120,7 @@ function Begin() {
             <CardFooter>
               <Field orientation="horizontal" className="w-full justify-end gap-2">
                 <Button type="button" variant="outline" onClick={() => form.reset()}>Reset</Button>
-                <Button type="submit" form="questionnaire-form">Next Step</Button>
+                <Button id= "nxt-step-btn" type="submit" form="questionnaire-form">Next Step</Button>
               </Field>
             </CardFooter>
           </Card> 
@@ -115,13 +136,13 @@ function Begin() {
               <Field>
                 <FieldLabel htmlFor="generated-link">Connection Link</FieldLabel>
                 <div className="flex gap-2">
-                  <Input id="generated-link" value={generatedLink} readOnly className="bg-muted" />
+                  <Input id="generated-link" value={secureRoomId} readOnly className="bg-muted" />
                   <Button 
                     type="button" 
                     variant="secondary"
                     onClick={() => {
-                      navigator.clipboard.writeText(generatedLink)
-                      toast.success("Link copied!")
+                      navigator.clipboard.writeText(secureRoomId)
+                      toast.success("ID copied!")
                     }}
                   >
                     Copy
@@ -152,5 +173,5 @@ function Begin() {
       </motion.div> {/* <-- Closes the sliding container box */}
     </div> /* <-- Closes the outer relative window layout */
   )
-}
 
+}

@@ -1,10 +1,11 @@
 How to run in dev mode:
 
-1. Go to client/ directory
+1. Go to client/ directory & use "npm install" for the frontend.
 
-2. Use "npm install" (or smth)
+2. Then go to server/ directory & use "npm install" for the backend.
 
-3. Use "npm run dev" & voila!
+3. Write "npx tsx src/server.ts" & now the project is online in http://localhost:3000/ 
+
 
 Files structure - with explanation of specific files that are new to me:
 
@@ -25,3 +26,13 @@ Files structure - with explanation of specific files that are new to me:
     ├── routeTree.gen.ts    # Automatically generated file that maps your src/routes/ (tanstack router)
     └── vite.config.js      # The bundler engine (Manages hot-reloading & backend server proxies)
 ```
+## Generate Pinggy link
+
+1. Use this command to generate Pinggy link:
+
+```
+ssh -p 443 -R0:localhost:5173 free.pinggy.io
+```
+2. Copy paste the https Pinggy link & add /connecting at the end of the url.
+
+3. You can now send this link to the user you want to start the chat with (along with the chat ID)

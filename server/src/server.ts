@@ -2,7 +2,10 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import ViteExpress from "vite-express";
-import { initializeSocketRouter } from "./src/socket/indexSock.js";
+import { initializeSocketRouter } from "./socket/indexSock.js";
+
+// Pass an options object before binding or listening
+ViteExpress.config({ inlineViteConfig: { root: "../client" } }); // Adjust "../client" to point to your frontend folder
 
 const app = express()
 const server = createServer(app);
