@@ -1,11 +1,10 @@
 // src/routes/begin.tsx
 import { useState, useEffect } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useForm } from "@tanstack/react-form"
 import { toast } from "sonner" //This is a direct trigger function to launch temporary alert notifications.
 import * as z from "zod" //zod is a validation tool for the username
-import { motion, AnimatePresence } from "framer-motion";
-import { io } from "socket.io-client";
+import { motion } from "framer-motion";;
 
 // Import your primitives from the UI folder
 import { Button } from "@/components/ui/button"
@@ -26,16 +25,10 @@ export const Route = createFileRoute('/begin')({
   component: Begin,
 })
 
-const socket = io("http://localhost:3000")
-socket.on("connect", () => {
-  console.log("CONNECTED", socket.id);
-});
-
 export function Begin() {
-
+ const { socket } = Route.useRouteContext() 
+   const navigate = useNavigate()
     const [step, setStep] = useState(1)
-  // Track direction: 1 for forward, -1 for backward
-  const [direction, setDirection] = useState(1) //dead code maybe???
   const [user1, setUser1] = useState<string>("")
   const [secureRoomId, setSecureRoomId] = useState<string>("")
 
@@ -46,7 +39,7 @@ export function Begin() {
     validators: { onSubmit: formSchema },
     onSubmit: async ({ value }) => {
       setUser1(value.username)
-      socket.emit("create_room")
+      socket.emit("create_room", {username: value.username})
       toast("Form successfully submitted!", {
         description: `Logged username: ${value.username}`,
         position: "bottom-right",
@@ -57,16 +50,31 @@ export function Begin() {
 
   useEffect(() => {
     // Listen for the event from the server
-    socket.on("room_created", (data) => {
+    socket.on("room_made", (data) => {
     console.log("received room:", data); //delete later when you see it works
     setSecureRoomId(data.roomId);
       
     });
 
     return () => {
-      socket.off("room_created");
+      socket.off("room_made");
     };
-  }, []);
+  }, [socket]);
+
+   const handleProceedToLobby = () => {
+    if (!secureRoomId) {
+      toast.error("Room ID hasn't generated yet. Please wait a moment.");
+      return;
+    }
+    
+    // Router validation expects search inputs to exactly match target routes schemas
+    navigate({
+      to: '/lobby',
+      search: {
+        roomId: secureRoomId,
+      },
+    })
+  };
 
 
   return ( 
@@ -109,7 +117,7 @@ export function Begin() {
                             placeholder="Type here..."
                           />
                           <FieldDescription>This name will identify your account.</FieldDescription>
-                          {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                          {isInvalid && <FieldError errors={field.state.meta.errors as any} />}
                         </Field>
                       )
                     }}
@@ -162,8 +170,8 @@ export function Begin() {
                 >
                   Back
                 </Button>
-                <Button type="button" onClick={() => toast.success("Connected!")}>
-                  <a href="./lobby">Make Connection</a>
+                <Button type="button" onClick={handleProceedToLobby}>
+                 Make Connection
                 </Button>
               </Field>
             </CardFooter>

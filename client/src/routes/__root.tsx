@@ -1,9 +1,12 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router'
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { Toaster } from 'sonner'
 import Footer from '@/components/Footer'
+import { Socket } from 'socket.io-client' 
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  socket: Socket
+}>()({
   component: RootComponent,
 })
 
@@ -21,6 +24,8 @@ function RootComponent() {
       {/* The Footer will now stay universally visible across all your pages */}
       <Footer />
       
+       <Toaster /> 
+
       {/* The floating developer drawer tool */}
       <TanStackRouterDevtools />
     </div>

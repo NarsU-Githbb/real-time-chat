@@ -3,20 +3,12 @@ import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/c
 import { Textarea } from "@/components/ui/textarea"
 import React from 'react';
 
-// Represents the entire chat container structure
-type ChatScreen = {
-  messages: {
-    sender: string;
-    message: string;
-    timeSend: Date;
-  }[]; // The [] tells TypeScript this is a list of these objects
-};
-
 export const Route = createFileRoute('/chat')({
   component: Chat,
 })
 
 function Chat() {
+   const { socket } = Route.useRouteContext() 
   const [chatData, setChatData] = React.useState<ChatScreen>({ messages: [] });
   return ( 
     <>

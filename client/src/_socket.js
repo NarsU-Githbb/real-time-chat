@@ -1,4 +1,10 @@
+//logic that I should implement inside main.tsx in the future maybe??
+
+
+
 import { io } from "socket.io-client";
+
+
 
 const SOCKET_URL = "http://localhost:3000";
 
