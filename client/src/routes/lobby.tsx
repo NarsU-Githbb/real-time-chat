@@ -8,6 +8,7 @@ import * as z from "zod"
 
 const lobbySearchSchema = z.object({
   roomId: z.string().min(1, "Room ID is missing or invalid"),
+   username: z.string().min(1, "Username is required"),
 })
 
 export const Route = createFileRoute('/lobby')({
@@ -20,7 +21,7 @@ export const Route = createFileRoute('/lobby')({
 function Lobbying() {
   const { socket } = Route.useRouteContext() 
   const navigate = useNavigate()
-   const { roomId } = Route.useSearch()
+   const { roomId, username } = Route.useSearch()
   const [notification, setNotification] = useState<string>("")
   const [isError, setIsError] = useState<boolean>(false)
 
@@ -45,7 +46,7 @@ function Lobbying() {
       setNotification(`Connected! Starting chat with ${data.username}...`)
 
     setTimeout(() => {
-        navigate({ to: '/chat', search: { roomId } })
+        navigate({ to: '/chat', search: { roomId, username } })
       }, 1500)
     })
     

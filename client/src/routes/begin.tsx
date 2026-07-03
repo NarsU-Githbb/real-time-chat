@@ -72,6 +72,7 @@ export function Begin() {
       to: '/lobby',
       search: {
         roomId: secureRoomId,
+        username: user1,
       },
     })
   };

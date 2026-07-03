@@ -15,14 +15,6 @@ export interface addRooms {
 
 const activeRoom: addRooms[] = []
 
-//HELPER FUNCTION DELETE LATER
-const logRoomContents = (io: Server, roomId: string) => {
-  const activeSocketsInRoom = io.sockets.adapter.rooms.get(roomId);
-  console.log(`[ROOM STATUS] Channel "${roomId}" active connections count:`, activeSocketsInRoom ? activeSocketsInRoom.size : 0);
-  if (activeSocketsInRoom) {
-    console.log(`              Active Socket IDs inside:`, Array.from(activeSocketsInRoom));
-  }
-};
 
 //Logic for when user1 presses connect after giving the username in begin/
 export function handleLobby(io: Server, socket: CustomSocket) {
@@ -35,7 +27,6 @@ export function handleLobby(io: Server, socket: CustomSocket) {
     socket.username = data.username;
 
   const secureRoomId = tokenRandomizer();
-  logRoomContents(io, secureRoomId);
   // When a user connects, immediately send them the secure room ID
 
    activeRoom.push({
@@ -56,7 +47,7 @@ socket.join(secureRoomId);
     socket.on("join_lobby_channel", (data: { roomId: string }) => {
     socket.join(data.roomId); // 👈 CRUCIAL: Re-attaches User 1's active connection string to the channel
     console.log(`User 1 synced to channel: ${data.roomId}`);
-    logRoomContents(io, data.roomId); // DELETE LATER
+  
   });
 
 socket.on("verify_room", (data: { roomId: string }, callback) => {
@@ -65,7 +56,7 @@ socket.on("verify_room", (data: { roomId: string }, callback) => {
   if (foundRoom) {
     // Join User 2's socket to the room immediately
     socket.join(data.roomId);
-     logRoomContents(io, data.roomId); // DELETE LATER
+
 
     // Tell User 1 instantly that someone has connected to their room ID!
     io.to(data.roomId).emit("user2_joined", { systemMessage: "Someone is joining..." });

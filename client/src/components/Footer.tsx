@@ -15,8 +15,8 @@ return (
             <div className="text-zinc-200 font-bold mb-2">Governance</div>
             <a href="#" className="hover:text-white transition-colors">Shareholder First Policy</a>
             <a href="#" className="hover:text-white transition-colors">Privacy Non-Factor</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of you own nothing & be happy</a>
-            <a href="#" className="hover:text-white transition-colors">Exit Scam Plans 2030</a>
+            <a href="./ohno" className="hover:text-white transition-colors">Request Partner Status</a>
+            <a href="#" className="hover:text-white transition-colors">Our Ponzi Plan 2030</a>
           </div>
           <div className="flex flex-col gap-4">
             <div className="text-zinc-200 font-bold mb-2">Company</div>

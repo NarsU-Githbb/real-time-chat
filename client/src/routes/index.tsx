@@ -52,7 +52,7 @@ return (
             <a href="./begin">Onboard into the Ecosystem</a>
           </Button>
           <Button variant="outline" size="lg" className="border-zinc-300">
-            <a href="./ohno">Request Partner Status</a>
+            <a href="./connecting">Tag Along as Co-Pilot</a>
           </Button>
         </div>
        
